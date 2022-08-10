@@ -1,3 +1,5 @@
+const { fetchProducts } = require("./helpers/fetchProducts");
+
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -22,6 +24,16 @@ const createProductItemElement = ({ sku, name, image }) => {
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
 
   return section;
+};
+
+const renderProduct = async () => {
+  const products = await fetchProducts();
+  products.forEach((product) => {
+  const createdCard = createProductItemElement({ ...product, 
+    sku: product.id, 
+    name: product.title, 
+    image: product.thumbnail });
+  });
 };
 
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;

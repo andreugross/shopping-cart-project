@@ -19,14 +19,14 @@ describe('1 - Teste a função fetchProducts', () => {
     expect(fetch).toHaveBeenCalledWith('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   });
 
-  it('Teste se o retorno da função fetchProducts com o argumento "computador" é uma estrutura de dados igual ao objeto computadorSearch, que já está importado no arquivo', () => {
-    const retornoAPI = fetchProducts('computador');
-    const comparisonData = {sku: "MLB1983278713", name: "Computador Fácil Intel Core I3 4gb Ssd 120gb", image: "http://http2.mlstatic.com/D_766782-MLB47145738530_082021-I.jpg"}
+  it('Teste se o retorno da função fetchProducts com o argumento "computador" é uma estrutura de dados igual ao objeto computadorSearch, que já está importado no arquivo', async () => {
+    const retornoAPI = await fetchProducts('computador');
+    const comparisonData = computadorSearch;
 
     expect(retornoAPI).toEqual(comparisonData);
   });
 
-  it('Teste se, ao chamar a função fetchProducts sem argumento, retorna um erro com a mensagem: "You must provide an url"', async () => {
-    await expect(fetchProducts('')).rejects.toMatch('You must provide an url');
+  it('Teste se, ao chamar a função fetchProducts sem argumento, retorna um erro com a mensagem: "You must provide an url"', () => {
+    expect(fetchProducts()).rejects.toThrow(new Error('You must provide an url'));
   });
 });
