@@ -21,9 +21,8 @@ describe('1 - Teste a função fetchProducts', () => {
 
   it('Teste se o retorno da função fetchProducts com o argumento "computador" é uma estrutura de dados igual ao objeto computadorSearch, que já está importado no arquivo', async () => {
     const retornoAPI = await fetchProducts('computador');
-    const comparisonData = computadorSearch;
-
-    expect(retornoAPI).toEqual(comparisonData);
+    
+    expect(retornoAPI).toEqual(computadorSearch);
   });
 
   it('Teste se, ao chamar a função fetchProducts sem argumento, retorna um erro com a mensagem: "You must provide an url"', () => {
