@@ -16,7 +16,7 @@ const createCustomElement = (element, className, innerText) => {
 };
 
 const cartItemClickListener = (event) => {
-  // coloque seu código aqui
+  event.target.remove();
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -65,4 +65,5 @@ const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').inn
 
 window.onload = async () => {
   await renderProducts();
+  addCart.addEventListener('click', cartItemClickListener);
 };
