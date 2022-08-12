@@ -1,5 +1,5 @@
 const itemsSection = document.getElementsByClassName('items')[0];
-const addCart = document.querySelector('.cart__items');
+const cartItems = document.querySelector('.cart__items');
 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
@@ -17,6 +17,7 @@ const createCustomElement = (element, className, innerText) => {
 
 const cartItemClickListener = (event) => {
   event.target.remove();
+  saveCartItems(cartItems.innerHTML);
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -31,7 +32,8 @@ const createFavorites = async (ident) => {
   const items = await fetchItem(ident);
   const { id, title, price } = items;
   const item = createCartItemElement({ sku: id, name: title, salePrice: price });
-  addCart.appendChild(item);
+  cartItems.appendChild(item);
+  saveCartItems(cartItems.innerHTML);
 };
 
 const createProductItemElement = ({ sku, name, image }) => {
@@ -61,9 +63,17 @@ const renderProducts = async () => {
   });
 };
 
+const deleteFavoriteCartList = () => {
+  const deleteCart = cartItems.querySelectorAll('.cart__item');
+  const result = deleteCart.forEach((element) => element
+    .addEventListener('click', cartItemClickListener));
+  return result;
+};
+
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
 window.onload = async () => {
   await renderProducts();
-  addCart.addEventListener('click', cartItemClickListener);
+  cartItems.innerHTML = getSavedCartItems();
+  deleteFavoriteCartList();
 };
