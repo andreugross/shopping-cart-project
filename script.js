@@ -1,5 +1,6 @@
 const itemsSection = document.getElementsByClassName('items')[0];
 const cartItems = document.querySelector('.cart__items');
+const removeAllCart = document.querySelector('.empty-cart');
 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
@@ -63,11 +64,15 @@ const renderProducts = async () => {
   });
 };
 
-const deleteFavoriteCartList = () => {
+const deleteFavoriteCartItem = () => {
   const deleteCart = cartItems.querySelectorAll('.cart__item');
   const result = deleteCart.forEach((element) => element
     .addEventListener('click', cartItemClickListener));
   return result;
+};
+
+const deleteFavoriteCartList = () => {
+  removeAllCart.addEventListener('click', () => { cartItems.innerHTML = ''; });
 };
 
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
@@ -75,5 +80,6 @@ const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').inn
 window.onload = async () => {
   await renderProducts();
   cartItems.innerHTML = getSavedCartItems();
+  deleteFavoriteCartItem();
   deleteFavoriteCartList();
 };
