@@ -73,6 +73,12 @@ const deleteFavoriteCartItem = () => {
 
 const deleteFavoriteCartList = () => {
   removeAllCart.addEventListener('click', () => { cartItems.innerHTML = ''; });
+  // removeAllCart.localStorage.clear();
+};
+
+const addingPlaceholder = () => {
+  const addloading = createCustomElement('span', 'loading', 'carregando...');
+  itemsSection.appendChild(addloading);
 };
 
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
